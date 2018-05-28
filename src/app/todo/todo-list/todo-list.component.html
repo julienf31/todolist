@@ -1,0 +1,18 @@
+<div class="container">
+  <div id="list" class="mt-4">
+    <h4>Liste de taches : {{ countTasks() }}</h4>
+    <div *ngFor="let task of tasksList; let i = index">
+      <div class="row">
+        <div class="col-8">
+          <span *ngIf="task.done" class="badge badge-success"> DONE </span> {{ task.name }}<br>
+          {{ task.description }}
+        </div>
+        <div class="col-4">
+          <button class="btn btn-primary" (click)="complete(i)" [disabled]="task.done">Terminé</button>
+          <span class="btn btn-danger" (click)="delete(i)">Supprimer</span>
+        </div>
+      </div>
+      <hr>
+    </div>
+  </div>
+</div>
