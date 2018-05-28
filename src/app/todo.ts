@@ -1,10 +1,5 @@
 export class Todo {
-  tasksList = [
-    {
-      name: 'Nom',
-      description: 'Description',
-    }
-  ];
-
-
+  name: string;
+  description: string;
+  done: boolean;
 }

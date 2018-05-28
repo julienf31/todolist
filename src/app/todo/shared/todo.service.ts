@@ -1,12 +1,15 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
+import {Todo} from '../../todo';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TodoService {
 
-  tasksList = [
+  task: Todo;
+
+  tasksList: Array<Todo> = [
     {
       name: 'Nom',
       description: 'Description',

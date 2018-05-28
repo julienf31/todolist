@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Todo} from '../../todo';
 import {TodoService} from '../shared/todo.service';
+import {Router} from '@angular/router';
 
 
 @Component({
@@ -10,15 +11,16 @@ import {TodoService} from '../shared/todo.service';
 })
 export class TodoCreateComponent implements OnInit {
 
-
   tasksList;
-  constructor(private todoService: TodoService) {
+
+  constructor(private todoService: TodoService, private router: Router) {
     this.tasksList = todoService.getTasks();
   }
 
-  todo = {
+  todo: Todo = {
     name: 'Nom',
-    description: 'Description'
+    description: 'Description',
+    done: false
   };
 
   ngOnInit() {
@@ -27,6 +29,7 @@ export class TodoCreateComponent implements OnInit {
   save() {
     console.log('new todo : ' + this.todo.name);
     this.todoService.addTask(this.todo);
+    this.router.navigate(['list']);
   }
 
 }
