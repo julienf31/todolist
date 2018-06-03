@@ -1,18 +1,21 @@
 <div class="container">
   <div id="list" class="mt-4">
     <h4>Liste de taches : {{ countTasks() }}</h4>
-    <div *ngFor="let task of tasksList; let i = index">
-      <div class="row">
+    <div *ngFor="let task of tasks; let i = index">
+      <div class="row" [ngClass]="{done: task.done === true}">
         <div class="col-8">
-          <span *ngIf="task.done" class="badge badge-success"> DONE </span> {{ task.name }}<br>
+          <span *ngIf="task.done" class="badge badge-success mr-2"> DONE </span> {{ task.name }}<br>
           {{ task.description }}
         </div>
         <div class="col-4">
-          <button class="btn btn-primary" (click)="complete(i)" [disabled]="task.done">Terminé</button>
-          <span class="btn btn-danger" (click)="delete(i)">Supprimer</span>
+          <a routerLink="/edit/{{ i }}" class="btn btn-warning btn-sm">Editer</a>
+          <button class="btn btn-primary btn-sm" (click)="complete(i)"><span *ngIf="task.done">Non</span> Terminée</button>
+          <span class="btn btn-danger btn-sm" (click)="delete(i)">Supprimer</span>
         </div>
       </div>
       <hr>
     </div>
   </div>
 </div>
+<a routerLink="/create" class="btn btn-circle btn-success btn-xl" style="position: absolute;bottom: 0;right: 0;"><h1>+</h1></a>
+

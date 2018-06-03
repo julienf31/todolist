@@ -1,21 +1,29 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Todo} from '../../todo';
 import {TodoService} from '../shared/todo.service';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-todo-list',
   templateUrl: './todo-list.component.html',
   styleUrls: ['./todo-list.component.scss']
 })
-export class TodoListComponent implements OnInit {
+export class TodoListComponent implements OnInit, OnDestroy {
 
-  tasksList;
+  tasks;
+  tasksSubscription: Subscription;
+
   constructor(private todoService: TodoService) {
-    this.tasksList = todoService.getTasks();
+    this.tasksSubscription = this.todoService.tasksList$.subscribe((updatedTasks) => {
+      this.tasks = updatedTasks;
+      console.log(updatedTasks);
+      console.log('updated tasks');
+    });
+    console.log(this.tasks);
   }
 
   countTasks() {
-    return this.todoService.getTasks().length;
+    return this.todoService.countTasks();
   }
 
   delete(id) {
@@ -23,11 +31,16 @@ export class TodoListComponent implements OnInit {
   }
 
   complete(id) {
-    this.todoService.markComplete(id);
+    this.todoService.complete(id);
   }
 
   ngOnInit() {
-    console.log();
+  }
+
+  ngOnDestroy() {
+    if (this.tasksSubscription) {
+      this.tasksSubscription.unsubscribe();
+    }
   }
 
 }

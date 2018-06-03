@@ -1,6 +1,6 @@
 <div class="container">
   <div class="card mt-4">
-    <div class="card-header bg-transparent">Créer une tâche</div>
+    <div class="card-header bg-transparent"><span *ngIf="type === 'create'">Créer</span><span *ngIf="type === 'edit'">Editer</span> une tâche</div>
     <div class="card-body">
       <h4>Informations</h4>
       <form action="">
